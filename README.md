@@ -38,13 +38,15 @@ This section aimed at advanced users, so proceed at your own discretion.
 
 1. Install the `flatpak-builder` package provided by your distro.
 2. Clone this repo.
-3. Then build:
+3. Download the launcher (as a zip file) from the [official website](https://teamshiginima.com/update/).
+4. Place the zip file (e.g. `ShiginimaSE_v4400.zip`) inside the cloned repository.
+5. Then, build:
 
     ```bash
     flatpak-builder --user --force-clean --install-deps-from=flathub --repo=repo/ --sandbox build com.teamshiginima.ShiginimaLauncher.yml
     ```
 
-4. After it succeeded building, you can then create a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html) (where `My_Own_Launcher.flatpak` is the output file):
+6. After it succeeded building, you can then create a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html) (where `My_Own_Launcher.flatpak` is the output file):
 
     ```bash
     flatpak build-bundle repo/ My_Own_Launcher.flatpak com.teamshiginima.ShiginimaLauncher master
