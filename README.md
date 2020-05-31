@@ -11,7 +11,7 @@ Because I'm always worried to run *\~unknown programs\~* on my computer. But tha
 ## Installing
 
 1. First, you have to [set up Flatpak](https://flatpak.org/setup/).
-2. After that, Download the [latest release](/releases) of the launcher.
+2. After that, Download the [latest release](https://github.com/guihkx/com.teamshiginima.ShiginimaLauncher/releases) of the launcher.
 3. To install it, open a terminal window and run:
 
     ```bash
@@ -20,7 +20,7 @@ Because I'm always worried to run *\~unknown programs\~* on my computer. But tha
 
 4. And you're good to go! You can find the Shiginima Launcher under `Applications` > `Games`.
 
-**IMPORTANT**: Your game files (worlds, mods, shaders, etc.) will be on `~/.var/app/com.teamshiginima.ShiginimaLauncher/data/minecraft/` and **not** on `~/.minecraft/`!
+**IMPORTANT**: Your game files (worlds, mods, shaders, etc.) will be in `~/.var/app/com.teamshiginima.ShiginimaLauncher/data/minecraft/` and **not** in `~/.minecraft/`!
 
 ## Uninstalling
 
@@ -30,7 +30,7 @@ In a terminal window, run:
 flatpak uninstall com.teamshiginima.ShiginimaLauncher
 ```
 
-Keep in mind that doing this **will not** remove any of your worlds/mods/shaders/whatever. They will be forever available on `~/.var/app/com.teamshiginima.ShiginimaLauncher/data/minecraft/`, unless you manually delete that folder.
+Keep in mind that doing this **will not** remove any of your worlds/mods/shaders/whatever. They will be forever available in `~/.var/app/com.teamshiginima.ShiginimaLauncher/data/minecraft/`, unless you manually delete that folder.
 
 ## Building & bundling (advanced)
 
@@ -56,4 +56,4 @@ This section aimed at advanced users, so proceed at your own discretion.
 
 This patch file is not *really* necessary to build and run the launcher. However, building without it will require you to manually remove `-XX:+CMSIncrementalMode` from your game's launch options, because that option is *not* compatible with the JRE v11, which is the Java runtime we are using to run the launcher.
 
-That being said, keep in mind that all binaries in the [Releases page](/releases) are built with that patch enabled.
+That being said, keep in mind that all binaries in the [Releases page](https://github.com/guihkx/com.teamshiginima.ShiginimaLauncher/releases) are built with that patch enabled.
