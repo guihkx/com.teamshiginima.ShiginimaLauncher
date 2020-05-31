@@ -1,0 +1,55 @@
+app-id: com.teamshiginima.ShiginimaLauncher
+runtime: org.freedesktop.Platform
+runtime-version: '19.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.openjdk11
+command: wrapper.sh
+finish-args:
+  - --share=network
+  - --socket=x11
+  - --share=ipc
+  - --device=dri
+  - --socket=pulseaudio
+  - --env=PATH=/app/jre/bin:/app/bin:/usr/bin
+  - --env=JAVA_HOME=/app/jre
+  - --persist=.minecraft
+modules:
+  - name: launcher
+    buildsystem: simple
+    build-options:
+      env:
+        PATH: /app/bin:/usr/bin:/usr/lib/sdk/openjdk11/bin
+    build-commands:
+      - jar --extract --file "Shiginima Launcher SE.v4400.jar" "net/minecraft/launcher/ui/popups/profile/ProfileJavaPanel.class" "net/minecraft/launcher/game/MinecraftGameRunner.class"
+      - git apply fix_jvm_args.patch
+      - jar --update --file "Shiginima Launcher SE.v4400.jar" "net/minecraft/launcher/ui/popups/profile/ProfileJavaPanel.class" "net/minecraft/launcher/game/MinecraftGameRunner.class"
+      - install -Dm755 -t "${FLATPAK_DEST}/bin" "wrapper.sh"
+      - install -Dm644 "Shiginima Launcher SE.v4400.jar" "${FLATPAK_DEST}/share/com.teamshiginima.ShiginimaLauncher/launcher.jar"
+      - install -Dm644 -t "${FLATPAK_DEST}/share/applications" "com.teamshiginima.ShiginimaLauncher.desktop"
+      - install -Dm644 "icon-256.png" "${FLATPAK_DEST}/share/icons/hicolor/256x256/apps/com.teamshiginima.ShiginimaLauncher.png"
+      - install -Dm644 "icon-128.png" "${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/com.teamshiginima.ShiginimaLauncher.png"
+      - install -Dm644 "icon-64.png" "${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/com.teamshiginima.ShiginimaLauncher.png"
+      - desktop-file-edit --set-key=Exec --set-value="${FLATPAK_DEST}/bin/wrapper.sh" "${FLATPAK_DEST}/share/applications/com.teamshiginima.ShiginimaLauncher.desktop"
+      - desktop-file-edit --set-icon=com.teamshiginima.ShiginimaLauncher "${FLATPAK_DEST}/share/applications/com.teamshiginima.ShiginimaLauncher.desktop"
+    sources:
+      - type: archive
+        path: ShiginimaSE_v4400.zip
+        sha256: a62e5272a29a926bc236ec2fa4f06d28600006751247039eb18f50fe95038a22
+      - type: file
+        path: fix_jvm_args.patch
+      - type: file
+        path: wrapper.sh
+      - type: file
+        path: com.teamshiginima.ShiginimaLauncher.desktop
+      - type: file
+        path: icon-256.png
+      - type: file
+        path: icon-128.png
+      - type: file
+        path: icon-64.png
+    modules:
+      - name: openjdk
+        buildsystem: simple
+        build-commands:
+          - /usr/lib/sdk/openjdk11/install.sh

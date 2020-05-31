@@ -1,0 +1,6 @@
+build/
+repo/
+.flatpak-builder/
+*.flatpak
+*.swp
+*.zip
