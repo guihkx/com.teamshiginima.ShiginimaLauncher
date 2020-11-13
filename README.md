@@ -6,7 +6,7 @@ Shiginima Launcher is an alternative Minecraft Launcher. The files in this repos
 
 ## Why?
 
-Because I'm always worried to run *\~unknown programs\~* on my computer. But thanks to Flatpak, I don't have to. The launcher and the game will both run in a sandboxed environment.
+Because giving read/write access to proprietary programs running on your computer is a very silly thing to do. ;)
 
 ## Installing
 
