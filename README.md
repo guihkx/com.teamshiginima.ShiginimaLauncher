@@ -6,19 +6,19 @@ Shiginima Launcher is an alternative Minecraft Launcher. The files in this repos
 
 ## Why?
 
-Because giving read/write access to proprietary programs running on your computer is a very silly thing to do. ;)
+Because giving proprietary programs read/write access to all the folders in your computer is a very silly thing to do. ;)
 
 ## Installing
 
-1. First, you have to [set up Flatpak](https://flatpak.org/setup/).
-2. After that, Download the [latest release](https://github.com/guihkx/com.teamshiginima.ShiginimaLauncher/releases) of the launcher.
-3. To install it, open a terminal window and run:
+1. Have [Flatpak set up](https://flatpak.org/setup/) in your distro.
+2. Download the [latest release](https://github.com/guihkx/com.teamshiginima.ShiginimaLauncher/releases) of the launcher.
+3. Open a terminal window and run:
 
     ```bash
     flatpak install Shiginima_Launcher_v4.400-x86_64.flatpak
     ```
 
-4. And you're good to go! You can find the Shiginima Launcher under `Applications` > `Games`.
+4. You're good to go! You can find the Shiginima Launcher under `Applications` > `Games`.
 
 **IMPORTANT**: Your game files (worlds, mods, shaders, etc.) will be in `~/.var/app/com.teamshiginima.ShiginimaLauncher/data/minecraft/` and **not** in `~/.minecraft/`!
 
@@ -34,13 +34,11 @@ Keep in mind that doing this **will not** remove any of your worlds/mods/shaders
 
 ## Building & bundling (advanced)
 
-This section aimed at advanced users, so proceed at your own discretion.
-
 1. Install the `flatpak-builder` package provided by your distro.
-2. Clone this repo.
+2. Clone this repository.
 3. Download the launcher (as a zip file) from the [official website](https://teamshiginima.com/update/).
 4. Place the zip file (e.g. `ShiginimaSE_v4400.zip`) inside the cloned repository.
-5. Then, build:
+5. Build it:
 
     ```bash
     flatpak-builder --user --force-clean --install-deps-from=flathub --repo=repo/ --sandbox build com.teamshiginima.ShiginimaLauncher.yml
@@ -49,11 +47,11 @@ This section aimed at advanced users, so proceed at your own discretion.
 6. After it succeeded building, you can then create a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html) (where `My_Own_Launcher.flatpak` is the output file):
 
     ```bash
-    flatpak build-bundle repo/ My_Own_Launcher.flatpak com.teamshiginima.ShiginimaLauncher master
+    flatpak build-bundle repo/ My_Own_Launcher.flatpak com.teamshiginima.ShiginimaLauncher stable
     ```
 
 ## About fix_jvm_args.patch
 
 This patch file is not *really* necessary to build and run the launcher. However, building without it will require you to manually remove `-XX:+CMSIncrementalMode` from your game's launch options, because that option is *not* compatible with the JRE v11, which is the Java runtime we are using to run the launcher.
 
-That being said, keep in mind that all binaries in the [Releases page](https://github.com/guihkx/com.teamshiginima.ShiginimaLauncher/releases) are built with that patch enabled.
+That being said, you can also download the unpatched version in the [Releases page](https://github.com/guihkx/com.teamshiginima.ShiginimaLauncher/releases).
