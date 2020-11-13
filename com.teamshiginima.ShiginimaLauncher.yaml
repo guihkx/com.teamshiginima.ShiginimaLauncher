@@ -1,6 +1,7 @@
 app-id: com.teamshiginima.ShiginimaLauncher
+branch: stable
 runtime: org.freedesktop.Platform
-runtime-version: '19.08'
+runtime-version: '20.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk11
@@ -27,6 +28,7 @@ modules:
       - install -Dm755 -t "${FLATPAK_DEST}/bin" "wrapper.sh"
       - install -Dm644 "Shiginima Launcher SE.v4400.jar" "${FLATPAK_DEST}/share/com.teamshiginima.ShiginimaLauncher/launcher.jar"
       - install -Dm644 -t "${FLATPAK_DEST}/share/applications" "com.teamshiginima.ShiginimaLauncher.desktop"
+      - install -Dm644 -t "${FLATPAK_DEST}/share/metainfo" "com.teamshiginima.ShiginimaLauncher.metainfo.xml"
       - install -Dm644 "icon-256.png" "${FLATPAK_DEST}/share/icons/hicolor/256x256/apps/com.teamshiginima.ShiginimaLauncher.png"
       - install -Dm644 "icon-128.png" "${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/com.teamshiginima.ShiginimaLauncher.png"
       - install -Dm644 "icon-64.png" "${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/com.teamshiginima.ShiginimaLauncher.png"
@@ -42,6 +44,8 @@ modules:
         path: wrapper.sh
       - type: file
         path: com.teamshiginima.ShiginimaLauncher.desktop
+      - type: file
+        path: com.teamshiginima.ShiginimaLauncher.metainfo.xml
       - type: file
         path: icon-256.png
       - type: file

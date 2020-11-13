@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.teamshiginima.ShiginimaLauncher</id>
+  <name>Shiginima Launcher</name>
+  <launchable type="desktop-id">com.teamshiginima.ShiginimaLauncher.desktop</launchable>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LicenseRef-proprietary</project_license>
+  <developer_name>Team Shiginima</developer_name>
+  <summary>Alternative Minecraft launcher</summary>
+  <description><p>The Shiginima Launcher is here to provide all with equal opportunity to experience minecraft, the worlds most popular sandbox game!</p></description>
+  <url type="homepage">https://teamshiginima.com/</url>
+  <content_rating type="oars-1.0">
+    <content_attribute id="violence-cartoon">moderate</content_attribute>
+    <content_attribute id="violence-fantasy">none</content_attribute>
+    <content_attribute id="violence-realistic">none</content_attribute>
+    <content_attribute id="violence-bloodshed">none</content_attribute>
+    <content_attribute id="violence-sexual">none</content_attribute>
+    <content_attribute id="drugs-alcohol">none</content_attribute>
+    <content_attribute id="drugs-narcotics">none</content_attribute>
+    <content_attribute id="drugs-tobacco">none</content_attribute>
+    <content_attribute id="sex-nudity">none</content_attribute>
+    <content_attribute id="sex-themes">none</content_attribute>
+    <content_attribute id="language-profanity">none</content_attribute>
+    <content_attribute id="language-humor">none</content_attribute>
+    <content_attribute id="language-discrimination">none</content_attribute>
+    <content_attribute id="social-chat">intense</content_attribute>
+    <content_attribute id="social-info">none</content_attribute>
+    <content_attribute id="social-audio">none</content_attribute>
+    <content_attribute id="social-location">none</content_attribute>
+    <content_attribute id="social-contacts">none</content_attribute>
+    <content_attribute id="money-purchasing">none</content_attribute>
+    <content_attribute id="money-gambling">none</content_attribute>
+  </content_rating>
+  <releases>
+    <release date="2020-01-31" version="4.400"/>
+  </releases>
+</component>
