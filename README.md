@@ -36,7 +36,7 @@ Keep in mind that doing this **will not** remove any of your worlds/mods/shaders
 
 1. Install the `flatpak-builder` package provided by your distro.
 2. Clone this repository.
-3. Download the launcher (as a zip file) from the [official website](https://teamshiginima.com/update/).
+3. Download the launcher (as a zip file) from the [official website](https://web.archive.org/web/20201101050543/https://teamshiginima.com/update/).
 4. Place the zip file (e.g. `ShiginimaSE_v4400.zip`) inside the cloned repository.
 5. Build it:
 
