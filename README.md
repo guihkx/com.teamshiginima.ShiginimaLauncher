@@ -68,7 +68,7 @@ Additionally, if you want to delete Minecraft itself, including worlds, mods, sh
 7. After it succeeds building, you can then create a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html) (where `Shiginima_Launcher.flatpak` is the output file):
 
     ```bash
-    flatpak build-bundle --arch=x86_x64 repo/ Shiginima_Launcher.flatpak com.teamshiginima.ShiginimaLauncher stable
+    flatpak build-bundle --arch=x86_64 repo/ Shiginima_Launcher.flatpak com.teamshiginima.ShiginimaLauncher stable
     ```
 
     7.1. **(Optional)** To create a bundle for `ARM64`, just replace `--arch=x86_64` by `--arch=aarch64`.
