@@ -57,3 +57,26 @@ modules:
         buildsystem: simple
         build-commands:
           - /usr/lib/sdk/openjdk11/install.sh
+  - name: libflite
+    cleanup:
+      - /bin
+      - /include
+      - /lib/*.a
+    buildsystem: simple
+    build-options:
+      no-debuginfo: true
+      cflags: -g0
+      arch:
+        x86_64:
+          # only strip x86_64 binaries, as it doesn't seem to work for aarch64 binaries when cross-compiling
+          strip: true
+    build-commands:
+      - echo -e "LEXES = cmulex\nLANGS = usenglish\nVOXES = cmu_us_kal16" > config/default.lv
+      - sed -i '/$(INSTALL) -m 755 $(BINDIR)\/flite_time $(DESTDIR)$(INSTALLBINDIR)/d' main/Makefile
+      - ./configure --prefix="${FLATPAK_DEST}" --with-audio=alsa --enable-shared
+      - make
+      - make install
+    sources:
+    - type: git
+      url: https://github.com/festvox/flite.git
+      commit: e0a3d2596f4fcb2b8babff5a6367b43a4ac2a664
