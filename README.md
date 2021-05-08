@@ -53,7 +53,7 @@ Additionally, if you want to delete Minecraft itself, including worlds, mods, sh
 ## Building & bundling (advanced)
 
 1. [Set up Flatpak](https://flatpak.org/setup/).
-2. Install `flatpak-builder` (and optionally `qemu-user-static` if you want to cross-compile for `ARM64`).
+2. Install `flatpak-builder`.
 3. Clone this repository.
 4. Download the ZIP file of the launcher from the [official website](https://web.archive.org/web/20201101050543/https://teamshiginima.com/update/).
 5. Place the zip file (`ShiginimaSE_v4400.zip`) inside the cloned repository.
@@ -63,18 +63,12 @@ Additionally, if you want to delete Minecraft itself, including worlds, mods, sh
     flatpak-builder --user --arch=x86_64 --force-clean --install-deps-from=flathub --repo=repo/ --sandbox build com.teamshiginima.ShiginimaLauncher.yaml
     ```
 
-    6.1. **(Optional)** To cross-compile for `ARM64`, just replace `--arch=x86_64` by `--arch=aarch64`.
-
 7. After it succeeds building, you can then create a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html) (where `Shiginima_Launcher.flatpak` is the output file):
 
     ```bash
     flatpak build-bundle --arch=x86_64 repo/ Shiginima_Launcher.flatpak com.teamshiginima.ShiginimaLauncher stable
     ```
 
-    7.1. **(Optional)** To create a bundle for `ARM64`, just replace `--arch=x86_64` by `--arch=aarch64`.
-
 ## About fix_jvm_args.patch
 
 This patch file simply removes `-XX:+CMSIncrementalMode` from Minecraft's launch options. Although this patch file is not mandatory to make the launcher itself work, it *is* required to make Minecraft run out-of-the-box. That's because we're using JRE (Java Runtime Environment) version 11 to run the game, and that option is only compatible with JRE version 8 and older.
-
-That being said, an un-patched build of the launcher is also available from the [Releases page](https://github.com/guihkx/com.teamshiginima.ShiginimaLauncher/releases) for your convenience.
