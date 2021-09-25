@@ -4,7 +4,7 @@ runtime: org.freedesktop.Platform
 runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.openjdk
+  - org.freedesktop.Sdk.Extension.openjdk17
 command: wrapper.sh
 finish-args:
   - --share=network
@@ -20,7 +20,7 @@ modules:
     buildsystem: simple
     build-options:
       env:
-        PATH: /app/bin:/usr/bin:/usr/lib/sdk/openjdk/bin
+        PATH: /app/bin:/usr/bin:/usr/lib/sdk/openjdk17/bin
     build-commands:
       - jar --extract --file "Shiginima Launcher SE.v4400.jar" "net/minecraft/launcher/ui/popups/profile/ProfileJavaPanel.class" "net/minecraft/launcher/game/MinecraftGameRunner.class"
       - git apply fix_jvm_args.patch
@@ -56,10 +56,7 @@ modules:
       - name: openjdk
         buildsystem: simple
         build-commands:
-          - /usr/lib/sdk/openjdk/install.sh
-          # TODO: Remove this workaround in OpenJDK 17
-          # https://bugs.openjdk.java.net/browse/JDK-8255790
-          - ln -sf /usr/lib/x86_64-linux-gnu/libharfbuzz.so.0 /app/jre/lib/libharfbuzz.so
+          - /usr/lib/sdk/openjdk17/install.sh
   - name: libflite
     cleanup:
       - /bin
