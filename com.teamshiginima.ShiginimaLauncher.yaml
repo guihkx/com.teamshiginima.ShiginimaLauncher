@@ -36,7 +36,7 @@ modules:
       - desktop-file-edit --set-icon=com.teamshiginima.ShiginimaLauncher "${FLATPAK_DEST}/share/applications/com.teamshiginima.ShiginimaLauncher.desktop"
     sources:
       - type: archive
-        path: ShiginimaSE_v4400.zip
+        url: https://web.archive.org/web/20201101050543/https://teamshiginima.com/update/ShiginimaSE_v4400.zip
         sha256: a62e5272a29a926bc236ec2fa4f06d28600006751247039eb18f50fe95038a22
       - type: file
         path: fix_jvm_args.patch
