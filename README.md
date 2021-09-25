@@ -33,7 +33,7 @@ A: Try running `flatpak update`, then re-open the launcher. If that doesn't work
 3. Open a terminal window and run:
 
     ```bash
-    flatpak install Shiginima_Launcher_v4.400-x86_64.flatpak
+    flatpak install Shiginima_Launcher_v4.400-*-x86_64.flatpak
     ```
 
 4. You're good to go! You can find the Shiginima Launcher under `Applications` > `Games`.
@@ -55,15 +55,13 @@ Additionally, if you want to delete Minecraft itself, including worlds, mods, sh
 1. [Set up Flatpak](https://flatpak.org/setup/).
 2. Install `flatpak-builder`.
 3. Clone this repository.
-4. Download the ZIP file of the launcher from the [official website](https://web.archive.org/web/20201101050543/https://teamshiginima.com/update/).
-5. Place the zip file (`ShiginimaSE_v4400.zip`) inside the cloned repository.
-6. Then build:
+4. Then build:
 
     ```bash
     flatpak-builder --user --arch=x86_64 --force-clean --install-deps-from=flathub --repo=repo/ --sandbox build com.teamshiginima.ShiginimaLauncher.yaml
     ```
 
-7. After it succeeds building, you can then create a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html) (where `Shiginima_Launcher.flatpak` is the output file):
+5. After it succeeds building, you can then create a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html) (where `Shiginima_Launcher.flatpak` is the output file):
 
     ```bash
     flatpak build-bundle --arch=x86_64 repo/ Shiginima_Launcher.flatpak com.teamshiginima.ShiginimaLauncher stable
