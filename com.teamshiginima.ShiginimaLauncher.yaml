@@ -76,7 +76,7 @@ modules:
     sources:
     - type: git
       url: https://github.com/festvox/flite.git
-      commit: e0a3d2596f4fcb2b8babff5a6367b43a4ac2a664
+      commit: 6c9f20dc915b17f5619340069889db0aa007fcdc
   - name: xrandr
     sources:
       - type: archive
