@@ -1,0 +1,72 @@
+name: Flatpak
+on:
+  push:
+    branches: [ ci ]
+  pull_request:
+    branches: [ ci ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up variables
+        id: vars
+        env:
+          TZ: America/Sao_Paulo
+        run: |
+          echo ::set-output name=REPO_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')
+          echo ::set-output name=TODAY::$(date +'%Y-%m-%d')
+
+      - name: Grab launcher version
+        id: version
+        uses: mikefarah/yq@v4.25.2
+        with:
+          cmd: yq '.modules[] | select(.name == "launcher").sources[] | select(.url == "*ShiginimaSE*.zip").url' "${{ steps.vars.outputs.REPO_NAME }}.yaml" | sed -r 's/.*ShiginimaSE_v([0-9])([0-9.-]+)\.zip/\1.\2/'
+
+      - name: Dump launcher version
+        id: dump
+        run: |
+          echo "VERSION: ${{ steps.version.outputs.result }}"
+
+      - name: Set artifact name
+        id: artifact
+        run: |
+          echo ::set-output name=NAME::Shiginima_Launcher_v${{ steps.version.outputs.result }}-b${{ steps.vars.outputs.TODAY }}
+
+      - name: Update metainfo.xml
+        env:
+          TZ: America/Sao_Paulo
+        run: |
+          sed -i "/<release /d; /<releases>/a\    <release date=\"${{ steps.vars.outputs.TODAY }}\" version=\"${{ steps.version.outputs.result }}-${{ steps.vars.outputs.TODAY }}\"/>" "${{ steps.vars.outputs.REPO_NAME }}.metainfo.xml"
+
+      - name: Install dependencies
+        run: |
+          sudo apt update && sudo apt install -y flatpak-builder
+
+#      - name: Cache Flatpak SDK
+#        uses: actions/cache@v2
+#        with:
+#          key: forever
+#          path: |
+#            ~/.local/share/flatpak
+
+      - name: Set up Flatpak
+        run: |
+          flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+      - name: Build (x86_64)
+        run: |
+          flatpak-builder --user --arch=x86_64 --force-clean --install-deps-from=flathub --repo=repo/ --sandbox build/ "${{ steps.vars.outputs.REPO_NAME }}.yaml"
+
+      - name: Bundle (x86_64)
+        run: |
+          flatpak build-bundle --arch=x86_64 repo/ "${{ steps.artifact.outputs.NAME }}-x86_64.flatpak" "${{ steps.vars.outputs.REPO_NAME }}" stable
+
+      - name: Upload (x86_64)
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.artifact.outputs.NAME }}-x86_64.flatpak
+          path: |
+            ${{ steps.artifact.outputs.NAME }}-x86_64.flatpak
