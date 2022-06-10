@@ -5,7 +5,7 @@ runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
-command: wrapper.sh
+command: launcher
 finish-args:
   - --share=network
   - --socket=x11
@@ -22,26 +22,26 @@ modules:
       env:
         PATH: /app/bin:/usr/bin:/usr/lib/sdk/openjdk17/bin
     build-commands:
-      - jar --extract --file "Shiginima Launcher SE.v4400.jar" "net/minecraft/launcher/ui/popups/profile/ProfileJavaPanel.class" "net/minecraft/launcher/game/MinecraftGameRunner.class"
+      - jar --extract --file "Shiginima Launcher SE.v4400.jar" net/minecraft/launcher/ui/popups/profile/ProfileJavaPanel.class net/minecraft/launcher/game/MinecraftGameRunner.class
       - git apply fix_jvm_args.patch
-      - jar --update --file "Shiginima Launcher SE.v4400.jar" "net/minecraft/launcher/ui/popups/profile/ProfileJavaPanel.class" "net/minecraft/launcher/game/MinecraftGameRunner.class"
-      - install -Dm755 -t "${FLATPAK_DEST}/bin" "wrapper.sh"
-      - install -Dm644 "Shiginima Launcher SE.v4400.jar" "${FLATPAK_DEST}/share/com.teamshiginima.ShiginimaLauncher/launcher.jar"
-      - install -Dm644 -t "${FLATPAK_DEST}/share/applications" "com.teamshiginima.ShiginimaLauncher.desktop"
-      - install -Dm644 -t "${FLATPAK_DEST}/share/metainfo" "com.teamshiginima.ShiginimaLauncher.metainfo.xml"
-      - install -Dm644 "icon-256.png" "${FLATPAK_DEST}/share/icons/hicolor/256x256/apps/com.teamshiginima.ShiginimaLauncher.png"
-      - install -Dm644 "icon-128.png" "${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/com.teamshiginima.ShiginimaLauncher.png"
-      - install -Dm644 "icon-64.png" "${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/com.teamshiginima.ShiginimaLauncher.png"
-      - desktop-file-edit --set-key=Exec --set-value="${FLATPAK_DEST}/bin/wrapper.sh" "${FLATPAK_DEST}/share/applications/com.teamshiginima.ShiginimaLauncher.desktop"
-      - desktop-file-edit --set-icon=com.teamshiginima.ShiginimaLauncher "${FLATPAK_DEST}/share/applications/com.teamshiginima.ShiginimaLauncher.desktop"
+      - jar --update --file "Shiginima Launcher SE.v4400.jar" net/minecraft/launcher/ui/popups/profile/ProfileJavaPanel.class net/minecraft/launcher/game/MinecraftGameRunner.class
+      - install -Dm755 -t /app/bin launcher
+      - install -Dm644 "Shiginima Launcher SE.v4400.jar" /app/share/com.teamshiginima.ShiginimaLauncher/launcher.jar
+      - install -Dm644 -t /app/share/applications com.teamshiginima.ShiginimaLauncher.desktop
+      - install -Dm644 -t /app/share/metainfo com.teamshiginima.ShiginimaLauncher.metainfo.xml
+      - install -Dm644 icon-256.png /app/share/icons/hicolor/256x256/apps/com.teamshiginima.ShiginimaLauncher.png
+      - install -Dm644 icon-128.png /app/share/icons/hicolor/128x128/apps/com.teamshiginima.ShiginimaLauncher.png
+      - install -Dm644 icon-64.png /app/share/icons/hicolor/64x64/apps/com.teamshiginima.ShiginimaLauncher.png
     sources:
       - type: archive
         url: https://web.archive.org/web/20201101050543/https://teamshiginima.com/update/ShiginimaSE_v4400.zip
         sha256: a62e5272a29a926bc236ec2fa4f06d28600006751247039eb18f50fe95038a22
       - type: file
         path: fix_jvm_args.patch
-      - type: file
-        path: wrapper.sh
+      - type: script
+        dest-filename: launcher
+        commands:
+          - exec java -jar /app/share/com.teamshiginima.ShiginimaLauncher/launcher.jar $@ --workdir "$XDG_DATA_HOME/minecraft"
       - type: file
         path: com.teamshiginima.ShiginimaLauncher.desktop
       - type: file
